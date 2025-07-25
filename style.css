@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+body {
+    font-family:'Playfair Display', cursive;
+    background-image: 'images/background.png';
+    margin: 0;
+    padding: 20px;
+    color: #402b23;
+    size: 800px 800px;
+}
+
+h1 {
+    text-align: center;
+    color: #d16e8c;
+}
+
+.shop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.pots, .inventory, .bouquet {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pot, .inventory-item, .bouquet-slot {
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border: 3px solid #b8e0d2;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.pot:hover, .inventory-item:hover, .bouquet-slot:hover {
+    transform: scale(1.05);
+}
+
+.sell-btn {
+    background: #ffb3c1;
+    padding: 10px 20px;
+    border: none;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.coin-counter {
+    font-size: 20px;
+}
+
+/*
+
+:root {
+    --background: #e3efe4;
+    --text: hsl(131, 7%, 49%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Playfair Display';
+    color: var(--text);
+}
+
+h1 {
+    font-weight: 100;
+    font-size: 40px;
+}
+
+h2 {
+    font-weight: 100;
+    font-size: 30px;
+}
+
+.button {
+    background-color: var(--background);
+    color: var(--text);
+    border: 1px solid var(--text);  
+    padding: 5px 15px 5px 15px;
+    font-size: 15px;
+}
+
+.header, .footer {
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    color: var(--text);
+    width: 100%;
+    height: 130px;
+}
+
+.left {
+    float: left;
+    margin: 10px;
+}
+
+.right {
+    float: right;
+    margin: 10px;
+}
+
+.tasks {
+    background-color: var(--text);
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.tasks ul {
+    padding-left: 15px;
+}
+
+.title {
+    background-color: var(--background);
+    color: var(--text);
+    border: 1px solid var(--text); 
+    width: 300px;
+    margin-top: 5px;
+}
+
+.date {
+    background-image: url("./images/calendar.png");
+    background-size: cover;
+    color: var(--text);
+    padding-top: 50px;
+    width: 159px;
+    height: 110px;
+}
+
+#add-btn, #delete-btn {
+    width: 140px;
+    margin: 0px;
+    margin-top: 10px;
+}
+
+.notes {
+    background-color: var(--background);
+    color: var(--text);
+    border: 1px solid var(--text); 
+    width: 300px;
+}
+
+.bunny {
+    background-color: var(--background);
+    color: var(--text);
+    border: 1px solid var(--text); 
+    padding: 10px;
+    width: 159px;
+}
+
+ */
