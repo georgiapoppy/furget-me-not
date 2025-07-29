@@ -5,34 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>oopsy daisy</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://kit.fontawesome.com/86f70aa7c1.js" crossorigin="anonymous"></script>
 </head>
-<body>
+    <body>
 
-  <h1>🌸 oopsy daisy 🌿</h1>
+      <div class="nav-arrows">
+        <button type="button" id="left-arrow" onclick="navigate('left')">◀</button>
+        <button type="button" id="right-arrow" onclick="navigate('right')">▶</button>
+      </div>
 
-  <div class="shop">
-    <div class="coin-counter">Coins: <span id="coins">0</span></div>
+      <div class="pages-container">
 
-    <h2>Grow Flowers</h2>
-    <div class="pots">
-      <div class="pot" data-index="0">🪴</div>
-      <div class="pot" data-index="1">🪴</div>
-      <div class="pot" data-index="2">🪴</div>
-    </div>
+        <div id="grow-page" class="page">
+            <h2>🌱 oopsy daisy 🌱</h2>
+            <h2>Grow Flowers</h2>
+            <div class="pots">
+              <div class="pot" data-index="0">🪴</div>
+              <div class="pot" data-index="1">🪴</div>
+              <div class="pot" data-index="2">🪴</div>
+            </div>
+        </div>
 
-    <h2>Inventory</h2>
-    <div class="inventory" id="inventory"></div>
+        <div id="shop-page" class="page">
+            <h2>🌱 shop 🌱</h2>
+            <div id="shop-items"></div>
+          </div>
 
-    <h2>Create Bouquet</h2>
-    <div class="bouquet" id="bouquet">
-      <div class="bouquet-slot"></div>
-      <div class="bouquet-slot"></div>
-      <div class="bouquet-slot"></div>
-    </div>
+          <div id="inventory-page" class="page">
+            <h2>inventory</h2>
+            <div class="inventory" id="inventory"></div>
+          </div>
 
-    <button class="sell-btn" onclick="sellBouquet()">Sell 💐</button>
-  </div>
+      </div>
 
-</body>
+      <div id="orders-bar"></div>
+      <div id="love-letter-icon" onclick="generateOrder()">💌</div>
+
+      <script src="main.js"></script>
+    </body>
 </html>

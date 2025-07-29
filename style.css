@@ -1,34 +1,119 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 
 body {
-    font-family:'Playfair Display', cursive;
-    background-image: 'images/background.png';
+    font-family:'Playfair Display';
+    background-image: url('images/background.jpg');
+    background-repeat: no-repeat; 
+    background-position: center center; 
+    background-size: cover; 
+    height: 100vh; 
     margin: 0;
-    padding: 20px;
+    padding: 0; 
     color: #402b23;
-    size: 800px 800px;
 }
 
-h1 {
-    text-align: center;
-    color: #d16e8c;
-}
-
-.shop {
+.nav-arrows {
+    position: fixed;
+    top: 50%;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    justify-content: space-between;
+    pointer-events: none;
+}
+.nav-arrows button {
+    pointer-events: all;
+    font-size: 24px;
+    background: #ffe6eb;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.nav-arrows button:hover {
+    transform: scale(1.2);
 }
 
-.pots, .inventory, .bouquet {
+.nav-arrows button:hover {
+    transform: scale(1.2);
+}
+
+.pages-container {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.page {
+  min-width: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.pages {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 200%;
+}
+
+.page h2, .page h3 {
+    margin-top: 0;
+}
+
+#orders-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #e6f7e6;
+    padding: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-top: 2px solid #b8e0d2;
+}
+
+#orders-bar div {
+    display: inline-block;
+    background: white;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    border: 2px solid #b8e0d2;
+    min-width: 100px;
+}
+
+.shop-item, .inventory-item, .flower-pot {
+    display: inline-block;
+    background: white;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #b8e0d2;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.shop-item:hover, .inventory-item:hover, .flower-pot:hover {
+    transform: scale(1.1);
+}
+
+#love-letter-icon {
+    position: fixed;
+    bottom: 70px;
+    left: 20px;
+    font-size: 32px;
+    cursor: pointer;
+    animation: bounce 2s infinite;
+}
+
+.pots, .inventory {
     display: flex;
     gap: 15px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.pot, .inventory-item, .bouquet-slot {
+.pot, .inventory-item {
     width: 80px;
     height: 80px;
     background: #fff;
@@ -42,128 +127,12 @@ h1 {
     transition: transform 0.2s;
 }
 
-.pot:hover, .inventory-item:hover, .bouquet-slot:hover {
+.pot:hover, .inventory-item:hover {
     transform: scale(1.05);
 }
 
-.sell-btn {
-    background: #ffb3c1;
-    padding: 10px 20px;
-    border: none;
-    font-size: 18px;
-    border-radius: 10px;
-    cursor: pointer;
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
-.coin-counter {
-    font-size: 20px;
-}
-
-/*
-
-:root {
-    --background: #e3efe4;
-    --text: hsl(131, 7%, 49%);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: white;
-    width: 100vw;
-    height: 100vh;
-    font-family: 'Playfair Display';
-    color: var(--text);
-}
-
-h1 {
-    font-weight: 100;
-    font-size: 40px;
-}
-
-h2 {
-    font-weight: 100;
-    font-size: 30px;
-}
-
-.button {
-    background-color: var(--background);
-    color: var(--text);
-    border: 1px solid var(--text);  
-    padding: 5px 15px 5px 15px;
-    font-size: 15px;
-}
-
-.header, .footer {
-    padding: 0px;
-    margin: 0px;
-    text-align: center;
-    color: var(--text);
-    width: 100%;
-    height: 130px;
-}
-
-.left {
-    float: left;
-    margin: 10px;
-}
-
-.right {
-    float: right;
-    margin: 10px;
-}
-
-.tasks {
-    background-color: var(--text);
-    padding: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.tasks ul {
-    padding-left: 15px;
-}
-
-.title {
-    background-color: var(--background);
-    color: var(--text);
-    border: 1px solid var(--text); 
-    width: 300px;
-    margin-top: 5px;
-}
-
-.date {
-    background-image: url("./images/calendar.png");
-    background-size: cover;
-    color: var(--text);
-    padding-top: 50px;
-    width: 159px;
-    height: 110px;
-}
-
-#add-btn, #delete-btn {
-    width: 140px;
-    margin: 0px;
-    margin-top: 10px;
-}
-
-.notes {
-    background-color: var(--background);
-    color: var(--text);
-    border: 1px solid var(--text); 
-    width: 300px;
-}
-
-.bunny {
-    background-color: var(--background);
-    color: var(--text);
-    border: 1px solid var(--text); 
-    padding: 10px;
-    width: 159px;
-}
-
- */
