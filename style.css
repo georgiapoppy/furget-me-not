@@ -1,15 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
     font-family:'Playfair Display';
-    background-image: url('images/background.jpg');
+    background-image: url('images/background.png');
+    background-size: cover;
     background-repeat: no-repeat; 
     background-position: center center; 
-    background-size: cover; 
-    height: 100vh; 
+    height: 100vh;
     margin: 0;
     padding: 0; 
-    color: #402b23;
+    overflow: hidden;
 }
 
 .nav-arrows {
@@ -20,10 +21,12 @@ body {
     justify-content: space-between;
     pointer-events: none;
 }
+
 .nav-arrows button {
     pointer-events: all;
-    font-size: 24px;
-    background: #ffe6eb;
+    font-size: 30px;
+    background: transparent;
+    color: #3e5a47;
     border: none;
     border-radius: 50%;
     width: 40px;
@@ -31,6 +34,7 @@ body {
     cursor: pointer;
     transition: transform 0.3s ease;
 }
+
 .nav-arrows button:hover {
     transform: scale(1.2);
 }
@@ -43,11 +47,11 @@ body {
   display: flex;
   overflow: hidden;
   width: 100%;
-  position: relative;
 }
 
 .page {
   min-width: 100%;
+  overflow: hidden;
   transition: transform 0.5s ease-in-out;
 }
 
@@ -57,17 +61,54 @@ body {
     width: 200%;
 }
 
+h1 {
+    font-family: "Sour Gummy";
+    text-align: center;
+    font-size: 300%;
+    color: #3e5a47;
+}
+
 .page h2, .page h3 {
     margin-top: 0;
+    text-align: center;
+    color: #6c8373;
+}
+
+#coins, #flowers {
+    font-size: 30px;
+    margin: 0px 30px 30px 30px;
+    color: #806656;
+    font-family:'Playfair Display';
+    margin-top: -23px;
+}
+
+.left {
+    margin: 0px 0px 0px 230px;
+}
+
+.right {
+    display: flex;
+    gap: 50px;
+    margin-right: 25px;
+}
+
+#letter {
+    width: 120px;
+    height: auto;
+    /* margin-top: -20px; */
+}
+
+header {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #orders-bar {
     position: fixed;
     bottom: 0;
-    width: 100%;
     background: #e6f7e6;
-    padding: 10px;
-    overflow-x: auto;
     white-space: nowrap;
     border-top: 2px solid #b8e0d2;
 }
@@ -75,14 +116,17 @@ body {
 #orders-bar div {
     display: inline-block;
     background: white;
-    padding: 10px;
-    margin-right: 10px;
     border-radius: 10px;
     border: 2px solid #b8e0d2;
-    min-width: 100px;
+    max-width: 100vh;
 }
 
-.shop-item, .inventory-item, .flower-pot {
+#orders-bar img {
+    width: 10px;
+    height: auto;
+}
+
+.shop-item, .inventory-item {
     display: inline-block;
     background: white;
     padding: 10px;
@@ -93,27 +137,18 @@ body {
     transition: transform 0.2s ease;
 }
 
-.shop-item:hover, .inventory-item:hover, .flower-pot:hover {
+.shop-item:hover, .inventory-item:hover {
     transform: scale(1.1);
 }
 
-#love-letter-icon {
-    position: fixed;
-    bottom: 70px;
-    left: 20px;
-    font-size: 32px;
-    cursor: pointer;
-    animation: bounce 2s infinite;
-}
-
-.pots, .inventory {
+.inventory {
     display: flex;
     gap: 15px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.pot, .inventory-item {
+.inventory-item {
     width: 80px;
     height: 80px;
     background: #fff;
@@ -127,8 +162,51 @@ body {
     transition: transform 0.2s;
 }
 
+.pot-container {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+.pot {
+    width: 300px;
+}
+
+.pots {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 200px;
+}
+
+.grow-spot {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.grow-spot[data-spot-index="0"] { top: 55px; left: 55px; }
+.grow-spot[data-spot-index="1"] { top: 55px; right: 55px; }
+.grow-spot[data-spot-index="2"] { bottom: 55px; left: 55px; }
+.grow-spot[data-spot-index="3"] { bottom: 55px; right: 55px; }
+
 .pot:hover, .inventory-item:hover {
     transform: scale(1.05);
+}
+
+#orders-tab {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: white;
+  border: 2px solid #b8e0d2;
+  padding: 10px;
+  border-radius: 10px;
+  z-index: 999;
 }
 
 @keyframes bounce {

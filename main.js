@@ -1,25 +1,29 @@
 let coins = 100;
 let seeds = [];
-let pots = document.querySelectorAll('.pot');
-const inventory = document.getElementById('inventory');
 let flowers = [];
 let orders = [];
-const flowerTypes = ['🌹','🌼','🌷'];
-let currentPage = 0;
+let inventoryData = []; 
 
-const pages = ["shop", "grow", "inventory"];
+const flowerTypes = ['images/poppy.png','images/daisy.png','images/bluebell.png','images/blossom.png','images/bud.png'];
+const seedTypes = ['images/poppy_seeds.png','images/daisy_seeds.png','images/bluebell_seeds.png','images/blossom_seeds.png','images/bud_seeds.png'];
+const pots = document.querySelectorAll('.pot');
+const inventoryEl = document.getElementById('inventory'); 
+const coinsEl = document.getElementById('coins');
+const flowersEl = document.getElementById('flowers');
+
 let currentPageIndex = 0;
+const pages = document.querySelectorAll(".page");
+const totalPages = pages.length;
 
 function showPage(index) {
-  const allPages = document.querySelectorAll(".page");
-  allPages.forEach((page, i) => {
-    page.style.transform = `translateX(${(i - index) * 100}%)`;
-  });
+  if (index < 0 || index >= totalPages) return;
+
+  const pagesWrapper = document.querySelector(".pages");
+  pagesWrapper.style.transform = `translateX(-${index * 100}%)`;
+  currentPageIndex = index;
 
   document.getElementById("left-arrow").style.visibility = index === 0 ? "hidden" : "visible";
-  document.getElementById("right-arrow").style.visibility = index === pages.length - 1 ? "hidden" : "visible";
-
-  currentPageIndex = index;
+  document.getElementById("right-arrow").style.visibility = index === totalPages - 1 ? "hidden" : "visible";
 }
 
 function navigate(direction) {
@@ -31,107 +35,124 @@ function navigate(direction) {
   showPage(currentPageIndex);
 }
 
+document.querySelectorAll('.grow-spot').forEach(spot => {
+  spot.addEventListener('click', () => {
+    if (spot.dataset.growing === 'true' || spot.dataset.flower || spot.dataset.seed) return;
 
-pots.forEach((pot, index) => {
-    pot.addEventListener('click', () => {
-        if (pot.dataset.growing === 'true') return;
-        pot.dataset.growing = 'true';
-        pot.textContent = '🌱';
-        setTimeout(() => {
-            const flower = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
-            pot.textContent = flower;
-            pot.dataset.flower = flower;
-        }, 3000);
-    });
+    const seed = seeds.pop();
+    if (!seed) {
+      alert("you don't have any seeds!");
+      return;
+    }
 
-    pot.addEventListener('dblclick', () => {
-        if (pot.dataset.flower) {
-            inventory.push(pot.dataset.flower);
-            updateInventory();
-            pot.textContent = '🪴';
-            pot.dataset.flower = '';
-            pot.dataset.growing = '';
-        }
-    });
+    spot.dataset.seed = seed;
+    spot.style.backgroundImage = `url("${seed}")`;
+
+    spot.title = "click again to water";
+  });
+
+  spot.addEventListener('click', () => {
+    if (spot.dataset.seed && !spot.dataset.watered) {
+      spot.dataset.watered = 'true';
+      spot.title = "";
+
+      setTimeout(() => {
+        const flower = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+        spot.style.backgroundImage = `url(${flower})`;
+        spot.dataset.flower = flower;
+        delete spot.dataset.seed;
+        delete spot.dataset.watered;
+      }, 5000);
+    }
+  });
+
+  spot.addEventListener('dblclick', () => {
+    if (spot.dataset.flower) {
+      inventoryData.push(spot.dataset.flower);
+      updateInventory();
+      spot.style.backgroundImage = '';
+      delete spot.dataset.flower;
+    }
+  });
 });
 
 function updateInventory() {
-    inventory.innerHTML = '';
-    inventory.forEach((flower, index) => {
-    const div = document.createElement('div');
-    div.className = 'inventory-item';
-    div.textContent = flower;
-    div.onclick = () => addToBouquet(flower, index);
-    inventory.appendChild(div);
-    });
+  inventoryEl.innerHTML = '';
+  flowersEl.textContent = len(flowers);
+  inventoryData.forEach((flower, index) => {
+    const img = document.createElement('img');
+    img.src = flower;
+    img.className = 'inventory-item';
+    inventoryEl.appendChild(img);
+  });
 }
 
 function updateShop() {
-    const shop = document.getElementById('shop-items');
-    shop.innerHTML = '';
-    flowerTypes.forEach(flower => {
+  const shop = document.getElementById('shop-items');
+  shop.innerHTML = '';
+  seedTypes.forEach(seed => {
     const item = document.createElement('div');
     item.className = 'shop-item';
-    item.textContent = `${flower} Seed - 10💰`;
-    item.onclick = () => buySeed(flower);
+    item.textContent = `url(${seedTypes})`;
+    item.onclick = () => buySeed(seed);
     shop.appendChild(item);
-    });
+  });
 }
 
-function buySeed(flower) {
-    if (coins >= 10) {
+function buySeed(seed) {
+  if (coins >= 10) {
     coins -= 10;
-    seeds.push(flower);
-    updatePots();
-    } else {
-    alert("Not enough coins!");
-    }
+    seeds.push(seed);
+    inventoryData.push(seed);
+  } else {
+    alert("not enough coins :(");
+  }
 }
 
-function pickFlower(flower) {
-    flowers.push(flower);
+const loveLetterIcon = document.getElementById('letter');
+const ordersTab = document.getElementById('orders-tab');
+const ordersList = document.getElementById('orders-list');
+
+loveLetterIcon.addEventListener('click', () => {
+  ordersTab.style.display = ordersTab.style.display === 'none' ? 'block' : 'none';
+});
+
+function generateOrders() {
+  orders = [
+    { flower: 'images/daisy.png', reward: 20 },
+    { flower: 'images/poppy.png', reward: 15 }
+  ];
+  renderOrders();
+}
+
+function renderOrders() {
+  ordersList.innerHTML = '';
+  orders.forEach((order, index) => {
+    const orderDiv = document.createElement('div');
+    orderDiv.innerHTML = `
+      <img src="${order.flower}" width="40">
+      <span>Reward: ${order.reward} coins</span>
+      <button onclick="fulfillOrder(${index})">deliver</button>
+    `;
+    ordersList.appendChild(orderDiv);
+  });
+}
+
+function fulfillOrder(index) {
+  const flower = orders[index].flower;
+  const invIndex = inventoryData.indexOf(flower);
+  if (invIndex !== -1) {
+    inventoryData.splice(invIndex, 1);
+    coins += orders[index].reward;
     updateInventory();
-}
-
-function generateOrder() {
-    const needed = [];
-    for (let i = 0; i < 2 + Math.floor(Math.random() * 2); i++) {
-    needed.push(flowerTypes[Math.floor(Math.random() * flowerTypes.length)]);
-    }
-    orders.push(needed);
-    updateOrders();
-}
-
-function updateOrders() {
-    const bar = document.getElementById('orders-bar');
-    bar.innerHTML = '';
-    orders.forEach((order, i) => {
-    const div = document.createElement('div');
-    div.innerHTML = `<div>${order.join(' ')}</div>`;
-    const btn = document.createElement('button');
-    btn.textContent = 'Deliver';
-    btn.onclick = () => deliverOrder(i);
-    div.appendChild(btn);
-    bar.appendChild(div);
-    });
-}
-
-function deliverOrder(index) {
-    const order = orders[index];
-    const match = JSON.stringify(bouquet) === JSON.stringify(order);
-    if (match) {
+    coinsEl.textContent = coins;
     orders.splice(index, 1);
-    coins += 30;
-    alert("Delivered! +30 coins");
-    bouquet = [];
-    updateOrders();
-    renderBouquet();
-    } else {
-    alert("Wrong bouquet!");
-    }
+    renderOrders();
+  } else {
+    alert("you don't have this flower in your inventory");
+  }
 }
 
-window.onload = () => {
-  showPage(0);
-  updateShop();
-};
+generateOrders();
+showPage(0);
+updateShop();

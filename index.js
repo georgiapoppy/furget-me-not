@@ -6,8 +6,8 @@ let win;
 
 function createWindow() {
   win = new BrowserWindow({
-    width: 540,
-    height: 1200,
+    width: 2560,
+    height: 1600,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -15,6 +15,7 @@ function createWindow() {
     },
   });
 
+  win.setAspectRatio(16/9)
   win.removeMenu();
   win.loadFile("index.html");
   

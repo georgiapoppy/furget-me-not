@@ -14,32 +14,60 @@
         <button type="button" id="right-arrow" onclick="navigate('right')">▶</button>
       </div>
 
-      <div class="pages-container">
-
-        <div id="grow-page" class="page">
-            <h2>🌱 oopsy daisy 🌱</h2>
-            <h2>Grow Flowers</h2>
-            <div class="pots">
-              <div class="pot" data-index="0">🪴</div>
-              <div class="pot" data-index="1">🪴</div>
-              <div class="pot" data-index="2">🪴</div>
-            </div>
+      <header>
+        <div class="left">
+          <img id="letter" src="images/letter.png" alt="love letter icon">
         </div>
+        <div class="right">
+          <div id="coins"> 0</div>
+          <div id="flowers">0</div>
+        </div>
+      </header>
 
-        <div id="shop-page" class="page">
-            <h2>🌱 shop 🌱</h2>
+      <div class="pages-container">
+        <div class="pages">
+          <div id="grow-page" class="page">
+            <div class="pots">
+              <div class="pot-container" data-pot-index="0">
+                <img class="pot" src="images/planter.png" alt="Planter">
+                <div class="grow-spot" data-spot-index="0"></div>
+                <div class="grow-spot" data-spot-index="1"></div>
+                <div class="grow-spot" data-spot-index="2"></div>
+                <div class="grow-spot" data-spot-index="3"></div>
+              </div>
+              <div class="pot-container" data-pot-index="1">
+                <img class="pot" src="images/planter.png" alt="Planter">
+                <div class="grow-spot" data-spot-index="0"></div>
+                <div class="grow-spot" data-spot-index="1"></div>
+                <div class="grow-spot" data-spot-index="2"></div>
+                <div class="grow-spot" data-spot-index="3"></div>
+              </div>
+              <div class="pot-container" data-pot-index="2">
+                <img class="pot" src="images/planter.png" alt="Planter">
+                <div class="grow-spot" data-spot-index="0"></div>
+                <div class="grow-spot" data-spot-index="1"></div>
+                <div class="grow-spot" data-spot-index="2"></div>
+                <div class="grow-spot" data-spot-index="3"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="shop-page" class="page">
+            <h2>⋆.˚✧ shop ✧˖°.</h2>
             <div id="shop-items"></div>
           </div>
 
           <div id="inventory-page" class="page">
-            <h2>inventory</h2>
+            <h2>⋆.˚✧ inventory ✧˖°.</h2>
             <div class="inventory" id="inventory"></div>
+            <div id="orders-tab" style="display:none;">
+              <h2>orders</h2>
+              <div id="orders-list"></div>
+            </div>
           </div>
+        </div>
 
       </div>
-
-      <div id="orders-bar"></div>
-      <div id="love-letter-icon" onclick="generateOrder()">💌</div>
 
       <script src="main.js"></script>
     </body>
